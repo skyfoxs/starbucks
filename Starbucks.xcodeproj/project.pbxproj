@@ -14,6 +14,8 @@
 		6B1487EE23AB976B0015D2A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B1487ED23AB976B0015D2A1 /* Assets.xcassets */; };
 		6B1487F123AB976B0015D2A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B1487EF23AB976B0015D2A1 /* LaunchScreen.storyboard */; };
 		6B1487F923AB97AF0015D2A1 /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1487F823AB97AF0015D2A1 /* CardTableViewCell.swift */; };
+		D8652DE323ABBB1D00BD2B6F /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8652DE223ABBB1D00BD2B6F /* CardDetailViewController.swift */; };
+		D8652DE523ABBE5A00BD2B6F /* String+pdf417Barcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8652DE423ABBE5A00BD2B6F /* String+pdf417Barcode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		6B1487F023AB976B0015D2A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B1487F223AB976B0015D2A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B1487F823AB97AF0015D2A1 /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
+		D8652DE223ABBB1D00BD2B6F /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
+		D8652DE423ABBE5A00BD2B6F /* String+pdf417Barcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+pdf417Barcode.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				6B1487EF23AB976B0015D2A1 /* LaunchScreen.storyboard */,
 				6B1487F223AB976B0015D2A1 /* Info.plist */,
 				6B1487F823AB97AF0015D2A1 /* CardTableViewCell.swift */,
+				D8652DE223ABBB1D00BD2B6F /* CardDetailViewController.swift */,
+				D8652DE423ABBE5A00BD2B6F /* String+pdf417Barcode.swift */,
 			);
 			path = Starbucks;
 			sourceTree = "<group>";
@@ -141,6 +147,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8652DE323ABBB1D00BD2B6F /* CardDetailViewController.swift in Sources */,
+				D8652DE523ABBE5A00BD2B6F /* String+pdf417Barcode.swift in Sources */,
 				6B1487E923AB976B0015D2A1 /* ViewController.swift in Sources */,
 				6B1487E523AB976B0015D2A1 /* AppDelegate.swift in Sources */,
 				6B1487E723AB976B0015D2A1 /* SceneDelegate.swift in Sources */,

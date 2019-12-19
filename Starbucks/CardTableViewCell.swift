@@ -92,7 +92,7 @@ class CardTableViewCell: UITableViewCell {
     }
 
     func updateView(card: StarbucksCard) {
-        titleLabel.text = card.number
+        titleLabel.text = String(card.number.suffix(4))
         subTitleLabel.text = card.amount
         backgroundImageView.image = card.image
     }

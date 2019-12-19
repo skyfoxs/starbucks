@@ -27,8 +27,16 @@ class ViewController: UIViewController {
     var tableView = UITableView()
 
     var cards = [
-        StarbucksCard(number: "4166", amount: "฿1220.00", image: UIImage(named: "Seattle-black")),
-        StarbucksCard(number: "1354", amount: "฿1020.00", image: UIImage(named: "Seattle"))
+        StarbucksCard(
+            number: "2423983764824166",
+            amount: "฿1220.00",
+            image: UIImage(named: "Seattle-black")
+        ),
+        StarbucksCard(
+            number: "1354201763981205",
+            amount: "฿1020.00",
+            image: UIImage(named: "Seattle")
+        )
     ]
 
     override func viewWillLayoutSubviews() {
@@ -82,6 +90,12 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        let card = cards[indexPath.row]
+        let detailViewController = CardDetailViewController()
+        detailViewController.card = card
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
 }
 
