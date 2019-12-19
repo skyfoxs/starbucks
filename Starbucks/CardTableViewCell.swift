@@ -13,7 +13,11 @@ class CardTableViewCell: UITableViewCell {
     let shadowView: UIView = {
         let v = UIView()
         v.layer.cornerRadius = 10
-        v.layer.masksToBounds = true
+        v.layer.masksToBounds = false
+        v.layer.shadowRadius = 6
+        v.layer.shadowColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).cgColor
+        v.layer.shadowOffset = CGSize(width: 0, height: 2)
+        v.layer.shadowOpacity = 0.75
         return v
     }()
 
@@ -61,23 +65,30 @@ class CardTableViewCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        if gradientView.layer.sublayers == nil {
-            let g = CAGradientLayer()
-            g.colors = [
-                UIColor.clear.cgColor,
-                UIColor.clear.cgColor,
-                UIColor.black.cgColor
-            ]
-            g.locations = [0.0, 0.7, 1.0]
-            g.startPoint = CGPoint(x: 0, y: 0)
-            g.endPoint = CGPoint(x: 0, y: 1)
-            g.frame = gradientView.bounds
-            gradientView.layer.addSublayer(g)
-            // Optimize perfermance
-            gradientView.layer.shadowPath = UIBezierPath(rect: gradientView.bounds).cgPath
-            gradientView.layer.shouldRasterize = true
-            gradientView.layer.rasterizationScale = UIScreen.main.scale
-        }
+        setupGradientViewIfNeed()
+        optimizeShadowViewIfNeed()
+    }
+
+    private func setupGradientViewIfNeed() {
+        guard gradientView.layer.sublayers == nil else { return }
+        let g = CAGradientLayer()
+        g.colors = [
+            UIColor.clear.cgColor,
+            UIColor.clear.cgColor,
+            UIColor.black.cgColor
+        ]
+        g.locations = [0.0, 0.7, 1.0]
+        g.startPoint = CGPoint(x: 0, y: 0)
+        g.endPoint = CGPoint(x: 0, y: 1)
+        g.frame = gradientView.bounds
+        gradientView.layer.addSublayer(g)
+    }
+
+    private func optimizeShadowViewIfNeed() {
+        guard shadowView.layer.shadowPath == nil else { return }
+        shadowView.layer.shadowPath = UIBezierPath(rect: shadowView.bounds).cgPath
+        shadowView.layer.shouldRasterize = true
+        shadowView.layer.rasterizationScale = UIScreen.main.scale
     }
 
     func updateView(card: StarbucksCard) {
@@ -99,10 +110,10 @@ class CardTableViewCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            backgroundImageView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor, constant: 15),
-            bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 20),
+            bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 15),
             titleLabel.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor, constant: 20),
             subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
             subTitleLabel.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor, constant: 20),
