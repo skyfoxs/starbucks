@@ -24,6 +24,14 @@ class CardDetailViewController: UIViewController {
         return v
     }()
 
+    let backButton: UIButton = {
+        let b = UIButton()
+        let c = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 28, weight: .light))
+        b.setImage(UIImage(systemName: "chevron.left", withConfiguration: c), for: .normal)
+        b.tintColor = .white
+        return b
+    }()
+
     let numberLabel: UILabel = {
         let l = UILabel()
         l.font = .systemFont(ofSize: 20, weight: .bold)
@@ -78,6 +86,11 @@ class CardDetailViewController: UIViewController {
     var card: StarbucksCard?
 
     // MARK: - Setup View
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.barStyle = .black
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setupHeaderViewIfNeed()
@@ -91,28 +104,37 @@ class CardDetailViewController: UIViewController {
 
     private func setupHeaderViewIfNeed() {
         guard backgroundImageView.superview == nil else { return }
+
+        backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
+
         view.addSubview(backgroundImageView)
         view.addSubview(gradientView)
         view.addSubview(numberLabel)
         view.addSubview(amountLabel)
+        view.addSubview(backButton)
 
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         gradientView.translatesAutoresizingMaskIntoConstraints = false
         numberLabel.translatesAutoresizingMaskIntoConstraints = false
         amountLabel.translatesAutoresizingMaskIntoConstraints = false
+        backButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImageView.heightAnchor.constraint(equalToConstant: 250),
+            backgroundImageView.heightAnchor.constraint(equalToConstant: 200),
             gradientView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor),
             gradientView.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor),
             gradientView.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor),
             gradientView.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor),
             numberLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-            numberLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            numberLabel.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: 10),
             amountLabel.topAnchor.constraint(equalTo: numberLabel.bottomAnchor, constant: 10),
-            amountLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            amountLabel.leadingAnchor.constraint(equalTo: numberLabel.leadingAnchor),
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            backButton.widthAnchor.constraint(equalToConstant: 40),
+            backButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 
@@ -175,5 +197,10 @@ class CardDetailViewController: UIViewController {
         amountLabel.text = card.amount
         backgroundImageView.image = card.image
         barcodeImageView.image = card.number.pdf417Barcode
+    }
+
+    // MARK: - Action
+    @objc func backButtonDidTap() {
+        navigationController?.popViewController(animated: true)
     }
 }
