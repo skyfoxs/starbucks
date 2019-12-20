@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         StarbucksCard(
             number: "2423983764824166",
             amount: "฿1220.00",
-            image: UIImage(named: "Seattle-black")
+            image: UIImage(named: "232")
         ),
         StarbucksCard(
             number: "1354201763981205",

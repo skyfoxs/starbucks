@@ -46,6 +46,20 @@ class CardDetailViewController: UIViewController {
         return v
     }()
 
+    let rewardsLabel: UILabel = {
+        let l = UILabel()
+        l.text = "Rewards and Benefits"
+        l.font = .systemFont(ofSize: 20, weight: .light)
+        l.textColor = .black
+        return l
+    }()
+
+    let giftView: GiftView = {
+        let v = GiftView()
+        v.updateView(title: "10% OFF", description: "Enjoy 10% OFF on any Starbucks product", expire: "Expires June 20, 2020")
+        return v
+    }()
+
     let payLabel: UILabel = {
         let l = UILabel()
         l.text = "Pay in store"
@@ -106,8 +120,8 @@ class CardDetailViewController: UIViewController {
         guard gradientView.layer.sublayers == nil else { return }
         let g = CAGradientLayer()
         g.colors = [
-            UIColor(white: 0, alpha: 0.8).cgColor,
-            UIColor(white: 0, alpha: 0.8).cgColor,
+            UIColor(white: 0, alpha: 0.7).cgColor,
+            UIColor(white: 0, alpha: 0.7).cgColor,
         ]
         g.locations = [0.0, 1.0]
         g.startPoint = CGPoint(x: 0, y: 0)
@@ -119,10 +133,14 @@ class CardDetailViewController: UIViewController {
     private func setupContentViewIfNeed() {
         guard contentBackgroundView.superview == nil else { return }
         view.addSubview(contentBackgroundView)
+        view.addSubview(rewardsLabel)
+        view.addSubview(giftView)
         view.addSubview(payLabel)
         view.addSubview(barcodeImageView)
 
         contentBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        rewardsLabel.translatesAutoresizingMaskIntoConstraints = false
+        giftView.translatesAutoresizingMaskIntoConstraints = false
         payLabel.translatesAutoresizingMaskIntoConstraints = false
         barcodeImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -130,10 +148,15 @@ class CardDetailViewController: UIViewController {
             contentBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            payLabel.topAnchor.constraint(equalTo: contentBackgroundView.topAnchor, constant: 30),
+            rewardsLabel.leadingAnchor.constraint(equalTo: contentBackgroundView.leadingAnchor, constant: 25),
+            rewardsLabel.topAnchor.constraint(equalTo: contentBackgroundView.topAnchor, constant: 35),
+            giftView.leadingAnchor.constraint(equalTo: contentBackgroundView.leadingAnchor, constant: 25),
+            giftView.topAnchor.constraint(equalTo: rewardsLabel.bottomAnchor, constant: 15),
+            giftView.trailingAnchor.constraint(equalTo: contentBackgroundView.trailingAnchor, constant: -25),
+            payLabel.topAnchor.constraint(equalTo: giftView.bottomAnchor, constant: 50),
             payLabel.leadingAnchor.constraint(equalTo: contentBackgroundView.leadingAnchor, constant: 25),
             barcodeImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            barcodeImageView.topAnchor.constraint(equalTo: payLabel.bottomAnchor, constant: 20),
+            barcodeImageView.topAnchor.constraint(equalTo: payLabel.bottomAnchor, constant: 5),
             barcodeImageView.widthAnchor.constraint(equalToConstant: 300),
             barcodeImageView.heightAnchor.constraint(equalToConstant: 100)
         ])
