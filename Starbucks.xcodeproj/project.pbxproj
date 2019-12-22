@@ -17,6 +17,7 @@
 		6B1487F923AB97AF0015D2A1 /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1487F823AB97AF0015D2A1 /* CardTableViewCell.swift */; };
 		D8652DE323ABBB1D00BD2B6F /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8652DE223ABBB1D00BD2B6F /* CardDetailViewController.swift */; };
 		D8652DE523ABBE5A00BD2B6F /* String+pdf417Barcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8652DE423ABBE5A00BD2B6F /* String+pdf417Barcode.swift */; };
+		D8D6F44323AF6A4C00E0CBE0 /* CardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D6F44223AF6A4C00E0CBE0 /* CardAnimator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		6B1487F823AB97AF0015D2A1 /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		D8652DE223ABBB1D00BD2B6F /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
 		D8652DE423ABBE5A00BD2B6F /* String+pdf417Barcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+pdf417Barcode.swift"; sourceTree = "<group>"; };
+		D8D6F44223AF6A4C00E0CBE0 /* CardAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnimator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				D8652DE223ABBB1D00BD2B6F /* CardDetailViewController.swift */,
 				6B1487F823AB97AF0015D2A1 /* CardTableViewCell.swift */,
 				6B0F0B8A23AC7BC0000C5AD3 /* GiftView.swift */,
+				D8D6F44223AF6A4C00E0CBE0 /* CardAnimator.swift */,
 				D8652DE723AF683B00BD2B6F /* Storyboard */,
 				D8652DE623AF680D00BD2B6F /* Extension */,
 				6B1487ED23AB976B0015D2A1 /* Assets.xcassets */,
@@ -168,6 +171,7 @@
 			files = (
 				D8652DE323ABBB1D00BD2B6F /* CardDetailViewController.swift in Sources */,
 				D8652DE523ABBE5A00BD2B6F /* String+pdf417Barcode.swift in Sources */,
+				D8D6F44323AF6A4C00E0CBE0 /* CardAnimator.swift in Sources */,
 				6B1487E923AB976B0015D2A1 /* CardController.swift in Sources */,
 				6B1487E523AB976B0015D2A1 /* AppDelegate.swift in Sources */,
 				6B1487E723AB976B0015D2A1 /* SceneDelegate.swift in Sources */,

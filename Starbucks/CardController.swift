@@ -23,7 +23,6 @@ class CardController: UIViewController {
         v.textColor = #colorLiteral(red: 0.03921568627, green: 0.3411764706, blue: 0.2352941176, alpha: 1)
         return v
     }()
-
     var tableView = UITableView()
 
     var cards = [
@@ -38,12 +37,17 @@ class CardController: UIViewController {
             image: UIImage(named: "Seattle")
         )
     ]
+    var selectedIndexPath: IndexPath?
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if tableView.superview == nil {
             setupView()
         }
+    }
+
+    var topbarHeight: CGFloat {
+        return view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0
     }
 
     private func setupView() {
@@ -66,6 +70,7 @@ class CardController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         navigationController?.navigationBar.isHidden = true
+        navigationController?.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +85,10 @@ class CardController: UIViewController {
         tableView.estimatedRowHeight = 190
         tableView.separatorStyle = .none
         tableView.register(CardTableViewCell.self, forCellReuseIdentifier: "cardCell")
+    }
+
+    func selectedView() -> CardTableViewCell? {
+        selectedIndexPath.flatMap { tableView.cellForRow(at: $0) as? CardTableViewCell }
     }
 }
 
@@ -99,9 +108,16 @@ extension CardController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let card = cards[indexPath.row]
+        selectedIndexPath = indexPath
+
         let detailViewController = CardDetailViewController()
         detailViewController.card = card
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 
+extension CardController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        operation == .push ? CardAnimator() : nil
+    }
+}
