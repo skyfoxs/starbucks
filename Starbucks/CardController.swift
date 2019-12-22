@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CardController.swift
 //  Starbucks
 //
 //  Created by Supakit Thanadittagorn on 19/12/19.
@@ -14,7 +14,7 @@ struct StarbucksCard {
     let image: UIImage?
 }
 
-class ViewController: UIViewController {
+class CardController: UIViewController {
 
     var screenTitleLabel: UILabel = {
         let v = UILabel()
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDataSource {
+extension CardController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cards.count
     }
@@ -95,7 +95,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: UITableViewDelegate {
+extension CardController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let card = cards[indexPath.row]
