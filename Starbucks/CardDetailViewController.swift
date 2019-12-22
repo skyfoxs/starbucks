@@ -122,7 +122,9 @@ class CardDetailViewController: UIViewController {
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImageView.heightAnchor.constraint(equalToConstant: 200),
+            backgroundImageView.heightAnchor.constraint(
+                equalTo: backgroundImageView.widthAnchor, multiplier: 680.0 / 1080.0
+            ),
             gradientView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor),
             gradientView.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor),
             gradientView.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor),
@@ -166,7 +168,7 @@ class CardDetailViewController: UIViewController {
         payLabel.translatesAutoresizingMaskIntoConstraints = false
         barcodeImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            contentBackgroundView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -20),
+            contentBackgroundView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -50),
             contentBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

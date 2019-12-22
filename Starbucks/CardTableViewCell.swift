@@ -77,7 +77,7 @@ class CardTableViewCell: UITableViewCell {
             UIColor.clear.cgColor,
             UIColor.black.cgColor
         ]
-        g.locations = [0.0, 0.7, 1.0]
+        g.locations = [0.0, 0.5, 1.0]
         g.startPoint = CGPoint(x: 0, y: 0)
         g.endPoint = CGPoint(x: 0, y: 1)
         g.frame = gradientView.bounds
@@ -109,6 +109,12 @@ class CardTableViewCell: UITableViewCell {
         gradientView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        let backgroundImageHeightConstraint = backgroundImageView.heightAnchor.constraint(
+            equalTo: backgroundImageView.widthAnchor, multiplier: 680.0 / 1080.0
+        )
+        backgroundImageHeightConstraint.priority = UILayoutPriority(rawValue: 999)
+
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
@@ -118,7 +124,7 @@ class CardTableViewCell: UITableViewCell {
             subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
             subTitleLabel.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor, constant: 20),
             backgroundImageView.bottomAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 20),
-            backgroundImageView.heightAnchor.constraint(equalToConstant: 250),
+            backgroundImageHeightConstraint,
             shadowView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor),
             shadowView.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor),
             shadowView.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor),

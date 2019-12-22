@@ -46,10 +46,6 @@ class CardController: UIViewController {
         }
     }
 
-    var topbarHeight: CGFloat {
-        return view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0
-    }
-
     private func setupView() {
         view.addSubview(screenTitleLabel)
         view.addSubview(tableView)

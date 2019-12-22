@@ -10,7 +10,7 @@ import UIKit
 
 class CardAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        3
+        0.7
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -33,27 +33,29 @@ class CardAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
         containerView.addSubview(fromViewSnapshot)
         containerView.addSubview(cardBackgroundSnapshot)
-        containerView.addSubview(cardTitleSnapshot)
-        containerView.addSubview(cardSubTitleSnapshot)
 
         let toView: UIView = toVC.view
         toView.layoutIfNeeded()
+        toView.alpha = 0
+        containerView.addSubview(toView) // Do not forget to add this into containerView before making snapshot
 
         let gradientSnapshot = toVC.gradientView.snapshotView(afterScreenUpdates: true)!
+        gradientSnapshot.frame = fromVC.view.frame
+        gradientSnapshot.alpha = 0
+
         let sheetViewSnapshot = toVC.contentBackgroundView.snapshotView(afterScreenUpdates: true)!
         sheetViewSnapshot.frame = CGRect(
             origin: CGPoint(x: 0, y: fromVC.view.frame.size.height),
             size: toVC.contentBackgroundView.frame.size
         )
-        toView.alpha = 0
-        gradientSnapshot.alpha = 0
-        containerView.addSubview(toView)
+
         containerView.addSubview(gradientSnapshot)
+        containerView.addSubview(cardTitleSnapshot)
+        containerView.addSubview(cardSubTitleSnapshot)
         containerView.addSubview(sheetViewSnapshot)
 
-        UIView.animate(withDuration: 3, animations: {
-
-            cardBackgroundSnapshot.frame = self.frame(for: cardBackgroundSnapshot, scaleTo: toVC.backgroundImageView)
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
+            cardBackgroundSnapshot.frame = toVC.backgroundImageView.frame
             cardTitleSnapshot.frame = self.frame(for: cardTitleSnapshot, usingPositionFrom: toVC.numberLabel)
             cardSubTitleSnapshot.frame = self.frame(for: cardSubTitleSnapshot, usingPositionFrom: toVC.amountLabel)
             sheetViewSnapshot.frame = toVC.contentBackgroundView.frame
@@ -61,20 +63,23 @@ class CardAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             gradientSnapshot.alpha = 1
         }, completion: { _ in
             toView.alpha = 1
-            cardView.alpha = 1
+            cardView.alpha = 1 // Reset cardView alpha in the fromViewController
             fromViewSnapshot.removeFromSuperview()
             cardBackgroundSnapshot.removeFromSuperview()
+            gradientSnapshot.removeFromSuperview()
             cardTitleSnapshot.removeFromSuperview()
             cardSubTitleSnapshot.removeFromSuperview()
             sheetViewSnapshot.removeFromSuperview()
-            gradientSnapshot.removeFromSuperview()
             transitionContext.completeTransition(true)
         })
     }
 
     func frame(for l: UIView, usingPositionFrom r: UIView) -> CGRect {
         CGRect(
-            origin: CGPoint(x: r.frame.origin.x, y: r.frame.origin.y + statusBarFrameHeightFromWindow(for: l)),
+            origin: CGPoint(
+                x: r.frame.origin.x + (r.frame.size.width - l.frame.size.width),
+                y: r.frame.origin.y + statusBarFrameHeightFromWindow(for: l)
+            ),
             size: l.frame.size
         )
     }
@@ -89,22 +94,5 @@ class CardAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
     func statusBarFrameHeightFromWindow(for view: UIView) -> CGFloat {
         view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0
-    }
-}
-
-extension UIView {
-    /// Replacement of `snapshotView` on iOS 10. Fixes the issue of `snapshotView` returning a blank white screen.
-    func snapshotImageView() -> UIImageView? {
-        UIGraphicsBeginImageContext(bounds.size)
-        guard let context = UIGraphicsGetCurrentContext() else {
-            return nil
-        }
-
-        layer.render(in: context)
-
-        let viewImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return UIImageView(image: viewImage, highlightedImage: viewImage)
     }
 }
